@@ -15,7 +15,7 @@ Deno.test("Nombre négatif", () => {
 
 //    ---   Numéro de secu    ---
 
-Deno.test("Numéro de secu  pas que avec des chiffres", () => {
+Deno.test("Numéro de secu pas que avec des chiffres", () => {
   assertEquals(safeParsePositive("2a2"), -1);
 })
 
