@@ -62,6 +62,15 @@ Deno.test("AnneeNaissance valide", () => {
   assertEquals(nssH.anneeNaissance, 23);
 });
 
+Deno.test("AnneeNaissance invalide", () => {
+  let _nss :NumeroSecuriteSociale;
+  assertThrows(
+    () => _nss = new NumeroSecuriteSociale("1-30267891234"),
+    Error,
+    "Année de naissance invalide."
+  );
+});
+
 //    ---   MoisNaissance    ---
 
 Deno.test("MoisNaissance valide", () => {
@@ -147,6 +156,15 @@ Deno.test("CleSecurite valide", () => {
   assertEquals(nssH.cleSecurite, 58);
 });
 
+Deno.test("CleSecurite invalide", () => {
+  let _nss :NumeroSecuriteSociale;
+  assertThrows(
+    () => _nss = new NumeroSecuriteSociale("1230267891234-1"),
+    Error,
+    "Clé de sécurité invalide."
+  );
+});
+
 Deno.test("Pas de CleSecurite, valide", () => {
   const nssH = new NumeroSecuriteSociale("1230267891234");
   assertEquals(nssH.cleSecurite, undefined);
@@ -154,7 +172,22 @@ Deno.test("Pas de CleSecurite, valide", () => {
 
 //    ---   toString    ---
 
-Deno.test("toString valide", () => {
+Deno.test("toString valide avec CléSecu", () => {
   const nssH = new NumeroSecuriteSociale("123026789123458");
   assertEquals(nssH.toString(), "Sexe : 1, Annee de naissance : 23, Mois de naissance : 2, Departement : 67, Commune : 891, Ordre de naissance : 234, Clé de securité : 58");
+});
+
+Deno.test("toString DOM TOM valide avec CléSecu", () => {
+  const nssH = new NumeroSecuriteSociale("123029989123458");
+  assertEquals(nssH.toString(), "Sexe : 1, Annee de naissance : 23, Mois de naissance : 2, Né à l'étranger, Pays : 891, Ordre de naissance : 234, Clé de securité : 58");
+});
+
+Deno.test("toString valide sans CléSecu", () => {
+  const nssH = new NumeroSecuriteSociale("1230267891234");
+  assertEquals(nssH.toString(), "Sexe : 1, Annee de naissance : 23, Mois de naissance : 2, Departement : 67, Commune : 891, Ordre de naissance : 234");
+});
+
+Deno.test("toString DOM TOM valide sans CléSecu", () => {
+  const nssH = new NumeroSecuriteSociale("1230299891234");
+  assertEquals(nssH.toString(), "Sexe : 1, Annee de naissance : 23, Mois de naissance : 2, Né à l'étranger, Pays : 891, Ordre de naissance : 234");
 });
